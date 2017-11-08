@@ -21,7 +21,7 @@ RUN chmod +x /bin/substitute-env-vars.sh
 ENV VARNISH_PORT 6081
 ENV VARNISH_ADMIN_PORT 6082
 ENV VARNISH_BACKEND_HOST backendhost
-ENV VARNISH_BACKEND_PORT 8080
+ENV VARNISH_BACKEND_PORT 8000
 ENV CACHE_SIZE 100M
 ENV VARNISHD_PARAMS -p syslog_cli_traffic=off -p cli_buffer=100000 -p default_ttl=3600 -p default_grace=3600 -p feature=+esi_ignore_other_elements -p vcc_allow_inline_c=on
 
