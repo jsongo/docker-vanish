@@ -11,7 +11,7 @@ RUN apt-get purge -y --auto-remove \
     && until rm -rf /var/lib/apt/lists/*; do sleep 1; done
 
 # Make our custom VCLs available on the container
-COPY default.vcl.tmpl /etc/varnish/default.vcl.tmpl
+# COPY default.vcl.tmpl /etc/varnish/default.vcl.tmpl
 
 # Add transformation/utility script
 COPY substitute-env-vars.sh /bin/substitute-env-vars.sh

@@ -1,22 +1,26 @@
-version: 2
-varnish:
-    build: .
-    container_name: varnish
-    ports:
-        - "16081:6081"
-        # - "6082:6082"
-    networks_mode: "bridge"
-    external_links:
-        - "official-ssr-site:backendhost1"
-        - "official-ssr-site2:backendhost2"
-    environment:
-        # VARNISH_PORT:         "6081"
-        # VARNISH_ADMIN_PORT:   "6082"
-        VARNISH_BACKEND_HOST: "localhost"
-        VARNISH_BACKEND_PORT: "80"
-        CACHE_SIZE:           "200M"
-    volumes:
-        - ./data/varnish:/var/lib/varnish
-        - ./data/config:/etc/varnish
-        - ./data/log:/var/log/nginx/log
-        - ./default.conf:/etc/nginx/conf.d/default.conf
+version: 3
+
+services:
+    varnish:
+        build: .
+        image: varnish
+        container_name: varnish
+        ports:
+            - "16081:6081"
+            # - "6082:6082"
+        network_mode: "bridge"
+        external_links:
+            - "official-ssr-site:backendhost1"
+            - "official-ssr-site2:backendhost2"
+        environment:
+            # VARNISH_PORT:         "6081"
+            # VARNISH_ADMIN_PORT:   "6082"
+            VARNISH_BACKEND_HOST: "localhost"
+            VARNISH_BACKEND_PORT: "80"
+            CACHE_SIZE:           "200M"
+        volumes:
+            - ./data/varnish:/var/lib/varnish
+            - ./data/config:/etc/varnish
+            - ./data/log:/var/log/nginx/log
+            - ./default.vcl.tmpl:/etc/varnish/default.vcl.tmpl
+            - ./default.conf:/etc/nginx/conf.d/default.conf
