@@ -1,11 +1,11 @@
+version: 2
 varnish:
     build: .
     container_name: varnish
     ports:
         - "16081:6081"
         # - "6082:6082"
-    networks:
-        - docker0
+    networks_mode: "bridge"
     external_links:
         - "official-ssr-site:backendhost1"
         - "official-ssr-site2:backendhost2"
