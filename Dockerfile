@@ -1,12 +1,11 @@
 FROM debian:latest
 
-MAINTAINER Achim Rosenhagen <a.rosenhagen@ffuenf.de>
-
-ENV REFRESHED_AT 2015-12-05
+LABEL maintainer="jsongo"
 
 RUN apt-get update \
     && apt-get install -qy \
-    varnish
+    varnish nginx \
+    && nginx
 
 RUN apt-get purge -y --auto-remove \
     && until rm -rf /var/lib/apt/lists/*; do sleep 1; done
@@ -20,8 +19,8 @@ RUN chmod +x /bin/substitute-env-vars.sh
 
 ENV VARNISH_PORT 6081
 ENV VARNISH_ADMIN_PORT 6082
-ENV VARNISH_BACKEND_HOST backendhost
-ENV VARNISH_BACKEND_PORT 8000
+ENV VARNISH_BACKEND_HOST localhost
+ENV VARNISH_BACKEND_PORT 80
 ENV CACHE_SIZE 100M
 ENV VARNISHD_PARAMS -p syslog_cli_traffic=off -p cli_buffer=100000 -p default_ttl=3600 -p default_grace=3600 -p feature=+esi_ignore_other_elements -p vcc_allow_inline_c=on
 
@@ -34,4 +33,4 @@ RUN chmod +x /start.sh
 ENTRYPOINT ["/start.sh"]
 
 EXPOSE 6081
-EXPOSE 6082
+# EXPOSE 6082
