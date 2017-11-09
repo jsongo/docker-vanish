@@ -23,4 +23,4 @@ services:
             - ./data/config:/etc/varnish
             - ./data/log:/var/log/nginx/log
             - ./default.vcl.tmpl:/etc/varnish/default.vcl.tmpl
-            - ./default.conf:/etc/nginx/site-available/default
+            - ./default.conf:/etc/nginx/sites-available/default
